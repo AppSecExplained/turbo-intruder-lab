@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>MFA Verification</title>
+		<link rel="stylesheet" href="/css/custom.css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="mt-5 p-5 bg-light rounded-3">
+				<h1 class="display-4">MFA Verification</h1>
+				<p class="lead">Please enter the 4-digit MFA code sent to you.</p>
+				<hr class="my-4" />
+				<% if (message) { %>
+				<div class="alert alert-<%= message.type %>" role="alert"><%= message.text %></div>
+				<% } %>
+				<form id="mfaForm" action="/mfa" method="post" style="width: 50%; margin: 0 auto">
+					<div class="mb-3">
+						<label for="code" class="form-label">MFA Code</label>
+						<input type="text" class="form-control" id="code" name="code" required />
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+				<p id="timer" class="mt-3 text-danger"></p>
+			</div>
+		</div>
+		<div class="container mt-5 footer">
+			<p>
+				If you liked this challenge, feel free to connect<br /><a href="https://linktr.ee/appsecexplained" target="_blank"
+					>https://linktr.ee/appsecexplained</a
+				>
+			</p>
+			<p>You're welcome to use and modify this app as you see fit,<br />but please credit me if you do.</p>
+		</div>
+		<script src="/js/bootstrap.bundle.min.js"></script>
+		<script>
+			const mfaExpiry = <%= mfaExpiry %>;
+			const timerElement = document.getElementById('timer');
+
+			function updateTimer() {
+			    const now = Date.now();
+			    const remaining = mfaExpiry - now;
+
+			    if (remaining <= 0) {
+			        timerElement.textContent = 'MFA code has expired.';
+			        return;
+			    }
+
+			    const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+			    timerElement.textContent = `MFA code expires in ${seconds} seconds.`;
+			}
+
+			setInterval(updateTimer, 1000);
+		</script>
+	</body>
+</html>

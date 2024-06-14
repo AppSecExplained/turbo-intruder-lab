@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Turbo Intruder Lab</title>
+		<link rel="stylesheet" href="/css/custom.css" />
+		<link rel="stylesheet" href="/css/bootstrap.min.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="mt-5 p-5 bg-light rounded-3">
+				<h1 class="display-4">Turbo Intruder Lab</h1>
+				<p class="lead">Some quote that I can't think of right now.</p>
+				<hr class="my-4" />
+				<% if (message) { %>
+				<div class="alert alert-<%= message.type %>" role="alert"><%= message.text %></div>
+				<% } %> <% if (!message || message.type === 'danger') { %>
+				<form id="loginForm" action="/login" method="post" style="width: 50%; margin: 0 auto">
+					<div class="mb-3">
+						<label for="username" class="form-label">Username</label>
+						<input type="text" class="form-control" id="username" name="username" required />
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">Password</label>
+						<input type="password" class="form-control" id="password" name="password" required />
+					</div>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+				<% } %>
+			</div>
+		</div>
+		<div class="container mt-5 footer">
+			<p>
+				If you liked this challenge, feel free to connect<br /><a href="https://linktr.ee/appsecexplained" target="_blank"
+					>https://linktr.ee/appsecexplained</a
+				>
+			</p>
+			<p>You're welcome to use and modify this app as you see fit,<br />but please credit me if you do.</p>
+		</div>
+		<script src="/js/bootstrap.bundle.min.js"></script>
+	</body>
+</html>
